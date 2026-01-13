@@ -1,0 +1,155 @@
+@if (tooltip() !== undefined) {
+  <label
+    [hlmTooltipTrigger]="tooltip()"
+    [hideDelay]="0"
+    [position]="'above'"
+    class="tw-relative tw-w-fit tw-mb-1 tw-flex tw-items-center tw-cursor-help tw-gap-1"
+    hlmLabel
+    [for]="id"
+  >
+    <ng-icon name="lucideInfo" class="tw-ml-1 tw-text-gray-400" size="16"></ng-icon>
+    @if (label() !== undefined) {
+      {{ label() }}
+    }
+  </label>
+} @else if (label() !== undefined) {
+  <label class="tw-relative tw-mb-1 tw-flex tw-items-center" hlmLabel [for]="id">
+    {{ label() }}
+  </label>
+}
+
+<div
+  class="tw-flex tw-items-stretch tw-w-full tw-rounded-md tw-border tw-border-input tw-bg-background"
+  [ngClass]="{
+    'tw-cursor-not-allowed tw-opacity-50': disabled(),
+  }"
+>
+  @if (prefix()) {
+    <span
+      class="tw-flex tw-items-center tw-border-r tw-border-input tw-bg-muted tw-px-3 tw-text-muted-foreground tw-rounded-bl-md tw-rounded-tl-md"
+      >{{ prefix() }}</span
+    >
+  }
+  <div
+    class="tw-flex-grow focus-within:tw-ring-2 focus-within:tw-ring-inset"
+    [ngClass]="{
+      'tw-rounded-md': !prefix() && !suffix(),
+      'tw-rounded-r-md': prefix() && !suffix(),
+      'tw-rounded-l-md': !prefix() && suffix(),
+      'focus-within:tw-ring-ring': !error(),
+      'focus-within:tw-ring-0': error(),
+    }"
+  >
+    <!-- 
+    @if (hints().length) {
+      <div class="tw-relative" #inputWrapper>
+        <input
+          hlmInput
+          #inputField
+          [id]="id"
+          [min]="min()" 
+          [max]="max()"
+          class="tw-w-full tw-border-0 tw-bg-transparent tw-px-3 tw-py-2 focus-visible:focus-visible:tw-outline-none focus-visible:focus-visible:tw-ring-0 focus-visible:focus-visible:tw-ring-offset-0"
+          [type]="type()"
+          [placeholder]="placeholder() ?? ''"
+          [disabled]="disabled()"
+          [ngModel]="value() ?? ''"
+          (ngModelChange)="value.set($any($event))"
+          (focus)="openHints(inputField)"
+          (input)="openHints(inputField)"
+          (change)="onChange($any($event.target).value);commit.emit(value())"
+        />
+        <ng-template #hintsDropdown>
+          <hlm-command class="!tw-p-0  tw-border tw-border-border">
+            <hlm-command-list>
+              <hlm-command-group>
+                @for (hint of filteredHints(); track hint) {
+                <button
+                  hlm-command-item
+                  [value]="$any(hint)"
+                  (click)="value.set(hint); commit.emit(hint); closeHints()"
+                >
+                  {{ hint }}
+                </button>
+                }
+              </hlm-command-group>
+            </hlm-command-list>
+          </hlm-command>
+        </ng-template>
+      </div>
+    } @else {
+      <input
+        hlmInput
+        #inputField
+        [id]="id"
+        [min]="min()" 
+        [max]="max()"
+        class="tw-w-full tw-border-0 tw-bg-transparent tw-px-3 tw-py-2 focus-visible:focus-visible:tw-outline-none focus-visible:focus-visible:tw-ring-0 focus-visible:focus-visible:tw-ring-offset-0"
+        [type]="type()"
+        [placeholder]="placeholder() ?? ''"
+        [disabled]="disabled()"
+        (input)="value.set($any($event.target).value)"
+        [value]="value() ?? ''"
+        (change)="onChange($any($event.target).value);commit.emit(value())"
+      />
+    }
+    -->
+    <div class="tw-relative" #inputWrapper>
+      <input
+        hlmInput
+        #inputField
+        [id]="id"
+        [name]="name()"
+        [min]="min()"
+        [max]="max()"
+        class="tw-w-full tw-border-0 tw-bg-transparent tw-px-3 tw-py-2 focus-visible:focus-visible:tw-outline-none focus-visible:focus-visible:tw-ring-0 focus-visible:focus-visible:tw-ring-offset-0"
+        [type]="getInputType()"
+        [placeholder]="placeholder() ?? ''"
+        [disabled]="disabled()"
+        [ngModel]="value() ?? ''"
+        (ngModelChange)="value.set($any($event))"
+        (focus)="openHints(inputField)"
+        (input)="openHints(inputField)"
+        (change)="onChange($any($event.target).value); commit.emit(value())"
+      />
+      @if (hints().length) {
+        <ng-template #hintsDropdown>
+          <hlm-command class="!tw-p-0 tw-border tw-border-border">
+            <hlm-command-list>
+              <hlm-command-group>
+                @for (hint of filteredHints(); track hint) {
+                  <button
+                    hlm-command-item
+                    [value]="$any(hint)"
+                    (click)="value.set(hint); commit.emit(hint); closeHints()"
+                  >
+                    {{ hint }}
+                  </button>
+                }
+              </hlm-command-group>
+            </hlm-command-list>
+          </hlm-command>
+        </ng-template>
+      }
+      <!-- Added -->
+      @if (type() === "password") {
+        <ng-icon
+          [name]="showPassword() ? 'lucideEye' : 'lucideEyeOff'"
+          class="tw-absolute tw-right-3 tw-inset-y-0 tw-my-auto"
+          size="24"
+          (click)="!disabled() && showPassword.set(!showPassword())"
+          [ngClass]="{
+            'tw-cursor-pointer': !disabled(),
+            'tw-opacity-50': disabled(),
+          }"
+        ></ng-icon>
+      }
+    </div>
+  </div>
+  @if (suffix()) {
+    <span
+      class="tw-flex tw-items-center tw-border-l tw-border-input tw-bg-muted tw-px-3 tw-text-muted-foreground tw-rounded-br-md tw-rounded-tr-md"
+      >{{ suffix() }}</span
+    >
+  }
+</div>

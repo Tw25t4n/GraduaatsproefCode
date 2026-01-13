@@ -1,0 +1,133 @@
+<div class="tw-m-0">
+	<div
+	class="md:tw-bg-background tw-py-6 tw-rounded-lg tw-max-w-[800px] tw-mx-auto"
+	#container
+	>
+		<!-- <div class="tw-w-10/12 tw-mx-auto"> -->
+		<form #passwordForm="ngForm" (ngSubmit)="submit(passwordForm)" class="tw-w-10/12 tw-mx-auto">
+
+			@if (
+				userExists.error() ||
+				userExists.isLoading() ||
+				companyDomain.isLoading() ||
+				companyDomain.error()
+			) {
+				<h3 class="tw-text-xl tw-font-semibold tw-py-3">
+					{{ translate()("businessRegistration.create.loading") }}
+				</h3>
+				<div class="tw-w-full tw-h-[250px]">
+					<div class="tw-absolute tw-inset-0 tw-flex tw-h-full">
+						<hlm-spinner class="tw-m-auto !tw-text-5xl" />
+					</div>
+				</div>
+			} @else {
+				@if (userExists.value()) {
+					<h3 class="tw-text-xl tw-font-semibold tw-py-3">
+						{{ translate()("businessRegistration.create.form.businessInformation") }}
+					</h3>
+					<ng-container *ngTemplateOutlet="businessInfoTemplate" />
+					<div class="tw-flex tw-items-center tw-my-4">
+						<div class="tw-flex-grow tw-border-t"></div>
+					</div>
+				} @else {
+					<hlm-accordion type="single" class="pb-4">
+						<hlm-accordion-item [isOpened]="openAccordeonElement() === 'user'">
+							<h3 class="tw-contents">
+								 <!-- [disabled]="!userPassword()" -->
+								<button
+									hlmAccordionTrigger
+									(click)="changeOpenAccordeonElement()"
+									[disabled]="!passwordForm.valid"
+									class="tw-w-full"
+								>
+
+									<div class="tw-text-lg tw-font-semibold">
+										{{
+											translate()("businessRegistration.create.form.userInformation")
+										}}
+									</div>
+									<ng-icon name="lucideChevronUp" hlm hlmAccIcon />
+								</button>
+							</h3>
+							<hlm-accordion-content>
+
+								<!-- (valueChange)="userPassword.set($event)" -->
+								<app-password-form
+									class="tw-block tw-m-1 tw-mb-3"
+									[disabled]="inputState().status === 'disabled'"
+								/>
+
+								<!-- [disabled]="!userPassword()" -->
+								<button
+									class="tw-m-1"
+									hlmBtn
+									(click)="changeOpenAccordeonElement()"
+									[disabled]="!passwordForm.valid"
+								>
+								
+									{{ translate()("buttons.next") }}
+								</button>
+							</hlm-accordion-content>
+						</hlm-accordion-item>
+						<hlm-accordion-item [isOpened]="openAccordeonElement() === 'business'">
+							<h3 class="tw-contents">
+
+								<!-- [disabled]="!userPassword()" -->
+								<button
+									hlmAccordionTrigger
+									(click)="changeOpenAccordeonElement()"
+									[disabled]="!passwordForm.valid"
+									class="tw-w-full"
+								>
+									<div class="tw-text-lg tw-font-semibold">
+										{{
+											translate()(
+												"businessRegistration.create.form.businessInformation"
+											)
+										}}
+									</div>
+									<ng-icon name="lucideChevronUp" hlm hlmAccIcon />
+								</button>
+							</h3>
+							<hlm-accordion-content>
+								<ng-container *ngTemplateOutlet="businessInfoTemplate" />
+							</hlm-accordion-content>
+						</hlm-accordion-item>
+					</hlm-accordion>
+				}
+
+				<!-- <button
+          hlmBtn
+          class="tw-w-full tw-my-2 tw-font-medium tw-py-2 tw-gap-3"
+          (click)="submit()"
+          [disabled]="!formCompleted() || inputState().status === 'disabled'"
+        > -->
+				<button
+					hlmBtn
+					class="tw-w-full tw-my-2 tw-font-medium tw-py-2 tw-gap-3" type="submit"
+					[disabled]="!(formCompleted() && (passwordForm.valid || userExists.value())) || inputState().status === 'disabled'"
+				>
+
+					<hlm-spinner
+						class="tw-h-full tw-items-center !tw-text-lg"
+						[ngClass]="{
+							'tw-invisible': inputState().status !== 'disabled',
+						}"
+					/>
+					{{ translate()("buttons.submit") }}
+					<hlm-spinner
+						class="tw-h-full tw-items-center !tw-text-lg tw-invisible"
+					/>
+				</button>
+				@if (inputState().error) {
+					<div class="tw-rounded tw-p-4 tw-bg-red-600 tw-text-white">
+						{{ translate()(inputState().error.text, inputState().error.params) }}
+					</div>
+				}
+			}
+
+		<!-- </div> -->
+		</form>
+
+	</div>
+</div>

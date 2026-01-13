@@ -1,0 +1,52 @@
+<div class="tw-m-0">
+  <div
+    class="md:tw-bg-white tw-py-6 tw-rounded-lg tw-max-w-[800px] tw-mx-auto"
+    #container
+  >
+
+    <!-- <div class="tw-w-10/12 tw-mx-auto"> -->
+    <form #passwordForm="ngForm" (ngSubmit)="send(passwordForm)" class="tw-w-10/12 tw-mx-auto">
+
+      <h3 class="tw-text-3xl tw-font-semibold tw-py-3">
+        <b>{{ translate()("passwordReset.update.title") }}</b>
+      </h3>
+
+      <!-- (valueChange)="password.set($event); inputState.set({ status: 'enabled' })" -->
+      <app-password-form
+        [disabled]="inputState().status === 'disabled'"
+      />
+
+      <!-- <button
+        hlmBtn
+        [disabled]="!password() || inputState().status === 'disabled'"
+        class="tw-w-full tw-my-4 tw-font-medium tw-py-2 tw-gap-3"
+        (click)="send()"
+      > -->
+      <button
+        hlmBtn
+        [disabled]="!passwordForm.valid || inputState().status === 'disabled'"
+        class="tw-w-full tw-my-4 tw-font-medium tw-py-2 tw-gap-3"
+      >
+
+        <hlm-spinner
+          class="tw-h-full tw-items-center !tw-text-lg"
+          [ngClass]="{
+            'tw-invisible': inputState().status !== 'disabled',
+          }"
+        />
+        {{ translate()("buttons.submit") }}
+        <hlm-spinner
+          class="tw-h-full tw-items-center !tw-text-lg tw-invisible"
+        />
+      </button>
+      @if (inputState().error) {
+        <div class="tw-rounded tw-p-4 tw-text-white tw-bg-red-600">
+          {{ translate()(inputState().error) }}
+        </div>
+      }
+
+      <!-- </div> -->
+    </form>
+    
+  </div>
+</div>

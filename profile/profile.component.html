@@ -1,0 +1,102 @@
+<div #container>
+  <app-god />
+  <div>
+    <div
+      class="tw-w-full tw-shadow-md tw-bg-slate-50 tw-border-t tw-border-slate-200 tw-rounded-lg tw-overflow-hidden"
+    >
+      <div
+        class="tw-flex tw-bg-slate-100 tw-p-3 tw-py-5 md:tw-p-8 tw-gap-8 tw-flex-wrap lg:tw-flex-nowrap tw-text-center lg:tw-text-left"
+      >
+        <div class="tw-font-medium tw-w-full lg:tw-basis-1/2">
+          {{ translate()("profile.currentEmail.title") }}
+        </div>
+        <div class="tw-font-normal tw-w-full lg:tw-basis-1/2 tw-text-gray-950">
+          {{ email() }}
+        </div>
+      </div>
+
+      <!-- 
+      <div
+        class="tw-flex tw-p-3 tw-py-5 md:tw-p-8 tw-bg-slate-100 tw-border-t tw-border-t-slate-300 tw-gap-8 tw-flex-wrap lg:tw-flex-nowrap"
+      > 
+      -->
+      <div class="tw-flex tw-p-3 tw-py-5 md:tw-p-8 tw-border-t tw-border-t-slate-300 tw-gap-8 tw-flex-wrap lg:tw-flex-nowrap">
+
+        <div class="tw-font-medium tw-w-full lg:tw-basis-1/2">
+          <div class="">{{ translate()("common.password") }}</div>
+          <div class="tw-font-normal tw-text-slate-500">
+            {{ translate()("profile.password.confirmCurrentPassword") }}
+          </div>
+        </div>
+        <div class="tw-font-normal tw-w-full lg:tw-basis-1/2 tw-text-gray-950">
+
+            <!-- 
+            <form autocomplete="off">
+              <div class="tw-my-1">
+                <label
+                  class="tw-text-slate-500 tw-my-1 tw-text-sm"
+                  for="current-password"
+                  >{{ translate()("profile.password.currentPassword") }}</label
+                >
+                <div
+                  class="tw-flex tw-bg-white tw-rounded-lg tw-relative tw-border tw-border-slate-300 focus-within:tw-border-slate-500 focus-within:tw-border tw-border-solid"
+                >
+                  <input
+                    [type]="hideOldPassword() ? 'password' : 'text'"
+                    class="tw-block tw-w-full tw-text-base tw-border-0 tw-p-3 tw-bg-transparent"
+                    id="current-password"
+                    name="current-password"
+                    [(ngModel)]="oldPassword"
+                    (ngModelChange)="passwordState.set({ status: 'enabled' })"
+                  />
+                  <span
+                    class="tw-cursor-pointer tw-absolute tw-right-0 tw-h-full tw-flex tw-items-center tw-pr-3"
+                    (click)="hideOldPassword.set(!hideOldPassword())"
+                    (keydown.enter)="hideOldPassword.set(!hideOldPassword())"
+                  >
+                    <i  translate="no" class="material-icons">{{
+                      hideOldPassword() ? "visibility_off" : "visibility"
+                    }}</i>
+                  </span>
+                </div>
+              -->
+            <!--
+            <app-password-form
+              (valueChange)="newPassword.set($event); passwordState.set({ status: 'enabled' })"
+              [disabled]="passwordState().status === 'disabled'"
+            />
+            <button
+              class="tw-bg-slate-700 tw-rounded-lg tw-text-white tw-w-full tw-p-3 tw-border-0 tw-my-3"
+              (click)="updatePassword()"
+            > -->
+          <form #passwordForm="ngForm" (ngSubmit)="updatePassword(passwordForm)" autocomplete="off">
+            <app-password-form
+              [disabled]="passwordState().status === 'disabled'"
+              [oldPasswordRequired]="true"
+            /> 
+            <button
+              class="tw-bg-slate-700 tw-rounded-lg tw-text-white tw-w-full tw-p-3 tw-border-0 tw-my-3" type="submit">
+              {{ translate()("profile.password.updatePassword") }}
+            </button>
+
+            <!-- @if (passwordState().message) { -->
+            @if (passwordState().message && passwordForm.form.pristine) {
+              
+              <div
+                [ngClass]="{
+                  'tw-rounded': true,
+                  'tw-p-4': true,
+                  'tw-text-white': true,
+                  'tw-bg-red-600': passwordState().message.type === 'error',
+                  'tw-bg-green-600': passwordState().message.type === 'success',
+                }"
+              >
+                {{ translate()(passwordState().message.key) }}
+              </div>
+            }
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
