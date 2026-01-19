@@ -13,16 +13,6 @@ import { PasswordValidatorDirective } from "./password-validator/password-valida
   selector: "app-password-form",
   templateUrl: "./password-form.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  
-  // imports: [
-  //   CommonModule,
-  //   FormsModule,
-  //   HlmLabelImports,
-  //   HlmInputImports,
-  //   HlmIconImports,
-  //   NgIcon,
-  // ],
-  // providers: [provideIcons({ lucideEye, lucideEyeOff, lucideCheck, lucideX })],
   imports: [
     CommonModule,
     NgIcon,

@@ -3,6 +3,7 @@
 	class="md:tw-bg-background tw-py-6 tw-rounded-lg tw-max-w-[800px] tw-mx-auto"
 	#container
 	>
+
 		<!-- <div class="tw-w-10/12 tw-mx-auto"> -->
 		<form #passwordForm="ngForm" (ngSubmit)="submit(passwordForm)" class="tw-w-10/12 tw-mx-auto">
 
@@ -33,6 +34,7 @@
 					<hlm-accordion type="single" class="pb-4">
 						<hlm-accordion-item [isOpened]="openAccordeonElement() === 'user'">
 							<h3 class="tw-contents">
+								
 								 <!-- [disabled]="!userPassword()" -->
 								<button
 									hlmAccordionTrigger

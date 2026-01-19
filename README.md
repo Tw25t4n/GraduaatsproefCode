@@ -1,4 +1,4 @@
-Verduidelijking
+# Verduidelijking
 
 Van een reactive form een template-driven form gemaakt
 
@@ -8,9 +8,15 @@ De validator voor het wachtwoord is in een aparte directive gezet.
 In de password form component wordt gebruik gemaakt van de input component, verdere code dat overbodig werd verwijderd.
 De create en update componenten zijn aangepast om hun functionaliteiten te behouden.
 
-Veranderingen in code bekijken
+# Visuele veranderingen
+
+![Before](./images/Screenshot 2026-01-12 114230.png)
+
+![After](./images/Screenshot 2026-01-12 114128.png)
+
+# Veranderingen in code bekijken
 
 Bekijk commentaar voor verwijderde/aangepaste code
 Zoek op volgende om toegevoegde code te bekijken:
-    // Added
-    <!-- Added -->
+- // Added
+- <!-- Added -->
