@@ -19,4 +19,4 @@ De create en update componenten zijn aangepast om hun functionaliteiten te behou
 Bekijk commentaar voor verwijderde/aangepaste code
 Zoek op volgende om toegevoegde code te bekijken:
 - // Added
-- <!-- Added -->
+- ```html <!-- Added --> ```
