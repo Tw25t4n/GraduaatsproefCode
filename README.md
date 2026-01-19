@@ -10,9 +10,9 @@ De create en update componenten zijn aangepast om hun functionaliteiten te behou
 
 # Visuele veranderingen
 
-![Before](./images/Screenshot 2026-01-12 114230.png)
+![Before](./images/Screenshot2026-01-12114230.png)
 
-![After](./images/Screenshot 2026-01-12 114128.png)
+![After](./images/Screenshot2026-01-12114128.png)
 
 # Veranderingen in code bekijken
 
